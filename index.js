@@ -6,14 +6,17 @@ const roomRoutes = require("./routes/room.js");
 const chatRoutes = require("./routes/chat.js");
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: '*',
+    optionsSuccessStatus: 200, // For legacy browser support
+    methods: "GET, POST" }));
 app.use(express.json());
 
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3001",
-    methods: ["GET", "POST"]
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
